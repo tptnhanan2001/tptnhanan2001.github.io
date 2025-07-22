@@ -2,7 +2,7 @@ swagger: '2.0'
 info:
   version: "0.0.1"
   title: XSS Vulnerable
-  description: <img src=x onerror="">
+  description: <img src="http://bxss.com">
 paths:
   /:
     get:
