@@ -2,84 +2,71 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>My Personal Blog</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #f4f4f4;
       color: #333;
-      margin: 0;
-      padding: 0;
-    }
-
-    header {
-      background-color: #007acc;
-      color: white;
-      padding: 20px 0;
       text-align: center;
+      padding: 50px;
     }
-
     .container {
-      max-width: 800px;
-      margin: 20px auto;
-      padding: 0 20px;
-      background: #fff;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      max-width: 700px;
+      margin: auto;
+      background-color: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
-
-    article {
-      margin-bottom: 30px;
+    h1 {
+      color: #222;
     }
-
-    article h2 {
-      margin-top: 0;
-      color: #007acc;
+    p.description {
+      color: #555;
     }
-
-    footer {
-      background-color: #eee;
-      text-align: center;
-      padding: 15px;
-      font-size: 14px;
-      margin-top: 40px;
-    }
-
-    a {
-      color: #007acc;
+    .social-links a {
+      display: inline-block;
+      margin: 10px;
+      padding: 10px 20px;
       text-decoration: none;
+      border-radius: 8px;
+      background-color: #0077b5;
+      color: white;
+      transition: background 0.3s ease;
     }
-
-    a:hover {
-      text-decoration: underline;
+    .social-links a.github {
+      background-color: #24292e;
+    }
+    .social-links a.hackerone {
+      background-color: #4942e4;
+    }
+    .social-links a.linkedin {
+      background-color: #0e76a8;
+    }
+    .social-links a:hover {
+      opacity: 0.9;
     }
   </style>
 </head>
 <body>
+  <div class="container">
+    <h1>👋 Hello, I'm Nhan Tieu</h1>
+    <p class="description">
+      I'm a penetration tester and cybersecurity researcher.<br />
+      I enjoy web & mobile hacking, reverse engineering, and red teaming.
+    </p>
 
-<header>
-  <h1>Welcome to My Blog</h1>
-  <p>Thoughts, stories and ideas by [Your Name]</p>
-</header>
+    <h2>🔗 My Profiles</h2>
+    <div class="social-links">
+      <a href="https://github.com/yourusername" class="github" target="_blank">GitHub</a>
+      <a href="https://www.linkedin.com/in/yourlinkedin/" class="linkedin" target="_blank">LinkedIn</a>
+      <a href="https://hackerone.com/yourhandle" class="hackerone" target="_blank">HackerOne</a>
+      <a href="https://bugcrowd.com/yourhandle" style="background-color: #222;" target="_blank">Bugcrowd</a>
+    </div>
 
-<div class="container">
-  <article>
-    <h2>First Blog Post</h2>
-    <p><em>July 22, 2025</em></p>
-    <p>This is my first post on my personal blog! I’ll be sharing tips about cybersecurity, pentesting, and CTF tricks that I find interesting.</p>
-  </article>
-
-  <article>
-    <h2>Why I Love Bug Bounty</h2>
-    <p><em>July 20, 2025</em></p>
-    <p>Bug bounties allow me to test real-world apps, learn new bypass techniques, and contribute to a safer internet. I’ll also drop some payloads and recon tips in upcoming posts.</p>
-  </article>
-</div>
-
-<footer>
-  &copy; 2025 [Your Name]. All rights reserved. | <a href="mailto:you@example.com">Contact</a>
-</footer>
-
+    <p style="margin-top: 40px; font-size: 0.9em; color: #888;">© 2025 Nhan Tieu</p>
+  </div>
 </body>
 </html>
