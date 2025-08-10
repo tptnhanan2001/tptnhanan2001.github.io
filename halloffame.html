@@ -1,272 +1,93 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Hall of Fame — Nhan Tieu</title>
-  <style>
-    :root{
-      --bg:#0f1724; --card:#0b1220; --muted:#94a3b8; --accent:#06b6d4; --glass: rgba(255,255,255,0.03);
-      --radius:12px; --gap:14px;
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0; font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background:linear-gradient(180deg,#071029 0%, #081224 60%); color:#e6eef6; -webkit-font-smoothing:antialiased;
-      padding:28px;
-    }
-    .wrap{max-width:1100px;margin:0 auto;}
-    header{display:flex;align-items:center;gap:16px;margin-bottom:18px;}
-    header h1{font-size:1.6rem;margin:0}
-    header p{margin:0;color:var(--muted);font-size:0.95rem}
-
-    .controls{display:flex;gap:12px;flex-wrap:wrap;margin:18px 0 8px;}
-    .search{
-      flex:1; min-width:220px; display:flex; gap:8px; align-items:center;
-      background:var(--glass); padding:10px;border-radius:10px;
-      border:1px solid rgba(255,255,255,0.03);
-    }
-    .search input{flex:1;background:transparent;border:0;color:inherit;font-size:0.95rem;outline:none}
-    .filters{display:flex;gap:8px;align-items:center}
-    .btn{
-      background:linear-gradient(90deg,var(--accent),#0ea5a4); border:0;padding:8px 12px;border-radius:10px;color:#021018;font-weight:600;
-      text-decoration:none; cursor:pointer; font-size:0.9rem;
-    }
-
-    .grid{
-      display:grid; grid-template-columns: repeat(auto-fill, minmax(280px,1fr));
-      gap:var(--gap); margin-top:10px;
-    }
-    .card{
-      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border:1px solid rgba(255,255,255,0.03);
-      padding:14px;border-radius:var(--radius); position:relative;
-      transition:transform .12s ease, box-shadow .12s ease;
-    }
-    .card:hover{transform:translateY(-6px); box-shadow:0 10px 30px rgba(2,6,23,0.5)}
-    .title{font-weight:700;color:#dff8fb;margin-bottom:6px}
-    .meta{font-size:0.85rem;color:var(--muted);display:flex;gap:8px;flex-wrap:wrap}
-    .desc{margin-top:10px;color:#cfe8ee;font-size:0.95rem;min-height:44px}
-
-    .card .actions{display:flex;gap:8px;margin-top:12px}
-    .link-btn{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:8px 10px;border-radius:8px;color:var(--accent);cursor:pointer;text-decoration:none}
-    .copy-btn{background:#0b1220;border:1px solid rgba(255,255,255,0.03);padding:8px 10px;border-radius:8px;color:var(--muted);cursor:pointer}
-
-    .empty{padding:28px;text-align:center;color:var(--muted);border-radius:10px;background:rgba(255,255,255,0.01);margin-top:14px}
-
-    footer{margin-top:28px;color:var(--muted);font-size:0.9rem;text-align:center}
-    @media (max-width:520px){ header{flex-direction:column;align-items:flex-start} }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hall of Fame</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #0d1117;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            text-align: center;
+            padding: 20px;
+            background: #161b22;
+            border-bottom: 2px solid #30363d;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            padding: 20px;
+        }
+        .hof-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #161b22;
+            border: 1px solid #30363d;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            transition: transform 0.2s ease;
+        }
+        .hof-card:hover {
+            transform: translateY(-3px);
+            background: #1c2128;
+        }
+        .hof-name {
+            font-size: 1.2rem;
+        }
+        .hof-link a {
+            color: #58a6ff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .hof-link a:hover {
+            text-decoration: underline;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9rem;
+            color: #8b949e;
+        }
+    </style>
 </head>
 <body>
-  <div class="wrap">
     <header>
-      <div>
         <h1>🏆 Hall of Fame</h1>
-        <p>Danh sách liên kết HoF (Hall of Fame) — mở nhanh các trang HoF của bạn trên nền tảng khác nhau.</p>
-      </div>
+        <p>List of Honors for Security Organizations and Programs</p>
     </header>
 
-    <div class="controls">
-      <div class="search" role="search">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="opacity:.7"><path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="11" cy="11" r="6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        <input id="q" placeholder="Tìm kiếm tên, nền tảng, năm..." aria-label="Search HoF">
-      </div>
-
-      <div class="filters">
-        <button class="btn" id="addDemo">Thêm mẫu</button>
-        <button class="btn" id="reset">Reset</button>
-      </div>
+    <div class="container">
+        <div class="hof-card">
+            <div class="hof-name">HackerOne Hall of Fame</div>
+            <div class="hof-link"><a href="https://hackerone.com/leaderboard/country?year=2025&owasp=a1&country=VN&assetType=WEB_APP&tab=bbp&userTypeTab=individual" target="_blank">Xem</a></div>
+        </div>
+        <div class="hof-card">
+            <div class="hof-name">Acronis Hall of Fame</div>
+            <div class="hof-link"><a href="https://hackerone.com/acronis/thanks/2025" target="_blank">Xem</a></div>
+        </div>
+        <div class="hof-card">
+            <div class="hof-name">WordFence Hall of Fame</div>
+            <div class="hof-link"><a href="https://www.wordfence.com/threat-intel/vulnerabilities/researchers/tieu-nhan" target="_blank">Xem</a></div>
+        </div>
+        <div class="hof-card">
+            <div class="hof-name">Achmea Responsible disclosure Hall of fame</div>
+            <div class="hof-link"><a href="https://www.achmea.nl/en/responsible-disclosure/hall-of-fame" target="_blank">Xem</a></div>
+        </div>
     </div>
 
-    <div id="grid" class="grid" aria-live="polite">
-      <!-- Cards sẽ được render bởi JS -->
-    </div>
-
-    <div id="empty" class="empty" style="display:none">Không tìm thấy mục nào. Thử thay đổi từ khóa tìm kiếm.</div>
-
-    <footer>© 2025 Nhan Tieu — Hall of Fame</footer>
-  </div>
-
-  <script>
-    // Dữ liệu HoF mẫu — sửa / thay thế theo ý bạn
-    const initialData = [
-      {
-        name: "HackerOne — Hall of Fame",
-        platform: "HackerOne",
-        year: "2025",
-        url: "https://hackerone.com/leaderboard/country?year=2025&owasp=a1&country=VN&assetType=WEB_APP&tab=bbp&userTypeTab=individual",
-        desc: "Top reports and recognition on HackerOne."
-      },
-      {
-        name: "HackerOne — Acronis Hall of Fame",
-        platform: "HackerOne",
-        year: "2025",
-        url: "https://hackerone.com/acronis/thanks/2025",
-        desc: "Top reports and recognition on HackerOne."
-      },
-      {
-        name: "Wordfence — Researcher Profile",
-        platform: "Wordfence",
-        year: "2024",
-        url: "https://www.wordfence.com/threat-intel/vulnerabilities/researchers/tieu-nhan",
-        desc: "Reported vulnerabilities tracked by Wordfence."
-      }
-    ];
-
-    const storageKey = 'hof_links_v1';
-    const qInput = document.getElementById('q');
-    const grid = document.getElementById('grid');
-    const empty = document.getElementById('empty');
-
-    // load from localStorage or initial
-    function loadData(){
-      try {
-        const raw = localStorage.getItem(storageKey);
-        return raw ? JSON.parse(raw) : initialData.slice();
-      } catch(e){
-        return initialData.slice();
-      }
-    }
-    function saveData(data){
-      localStorage.setItem(storageKey, JSON.stringify(data));
-    }
-
-    function makeCard(item, idx){
-      const card = document.createElement('div');
-      card.className = 'card';
-      card.dataset.idx = idx;
-
-      const title = document.createElement('div');
-      title.className = 'title';
-      title.textContent = item.name;
-
-      const meta = document.createElement('div');
-      meta.className = 'meta';
-      meta.innerHTML = `<span>${item.platform}</span> <span>•</span> <span>${item.year || '—'}</span>`;
-
-      const desc = document.createElement('div');
-      desc.className = 'desc';
-      desc.textContent = item.desc || '';
-
-      const actions = document.createElement('div');
-      actions.className = 'actions';
-
-      const open = document.createElement('a');
-      open.className = 'link-btn';
-      open.textContent = 'Mở';
-      open.href = item.url;
-      open.target = '_blank';
-      open.rel = 'noopener noreferrer';
-
-      const copy = document.createElement('button');
-      copy.className = 'copy-btn';
-      copy.textContent = 'Copy link';
-      copy.onclick = (e) => {
-        navigator.clipboard?.writeText(item.url).then(()=> {
-          copy.textContent = 'Copied!';
-          setTimeout(()=> copy.textContent = 'Copy link', 1200);
-        }).catch(()=> {
-          copy.textContent = 'Fail';
-          setTimeout(()=> copy.textContent = 'Copy link', 1200);
-        });
-      };
-
-      const edit = document.createElement('button');
-      edit.className = 'copy-btn';
-      edit.textContent = 'Edit';
-      edit.onclick = ()=> openEditor(item, idx);
-
-      const del = document.createElement('button');
-      del.className = 'copy-btn';
-      del.textContent = 'Delete';
-      del.onclick = ()=> {
-        if(confirm('Xóa mục này khỏi Hall of Fame?')){
-          const d = loadData();
-          d.splice(idx,1);
-          saveData(d);
-          render();
-        }
-      };
-
-      actions.appendChild(open);
-      actions.appendChild(copy);
-      actions.appendChild(edit);
-      actions.appendChild(del);
-
-      card.appendChild(title);
-      card.appendChild(meta);
-      card.appendChild(desc);
-      card.appendChild(actions);
-
-      return card;
-    }
-
-    function render(filterText = ''){
-      const data = loadData();
-      const q = (filterText||'').trim().toLowerCase();
-      grid.innerHTML = '';
-      const shown = data
-        .map((it, i) => ({it,i}))
-        .filter(({it})=>{
-          if(!q) return true;
-          return (it.name||'').toLowerCase().includes(q) ||
-                 (it.platform||'').toLowerCase().includes(q) ||
-                 (it.year||'').toLowerCase().includes(q) ||
-                 (it.desc||'').toLowerCase().includes(q);
-        });
-      if(shown.length === 0){
-        empty.style.display = 'block';
-      } else {
-        empty.style.display = 'none';
-        shown.forEach(obj => grid.appendChild(makeCard(obj.it, obj.i)));
-      }
-    }
-
-    function openEditor(item, idx){
-      const name = prompt('Tên mục', item.name);
-      if(name === null) return;
-      const platform = prompt('Nền tảng', item.platform||'');
-      if(platform === null) return;
-      const year = prompt('Năm', item.year||'');
-      if(year === null) return;
-      const url = prompt('URL (hoàn chỉnh)', item.url||'');
-      if(url === null) return;
-      const desc = prompt('Mô tả ngắn', item.desc||'');
-      if(desc === null) return;
-
-      const d = loadData();
-      d[idx] = { name:name.trim(), platform:platform.trim(), year:year.trim(), url:url.trim(), desc:desc.trim() };
-      saveData(d);
-      render(qInput.value);
-    }
-
-    // controls
-    document.getElementById('addDemo').onclick = ()=>{
-      const name = prompt('Tên mục (ví dụ: HackerOne — Hall of Fame)');
-      if(!name) return;
-      const platform = prompt('Nền tảng (HackerOne, Bugcrowd...)') || '';
-      const year = prompt('Năm') || '';
-      const url = prompt('URL (ví dụ: https://... )');
-      if(!url) return alert('URL bắt buộc');
-      const desc = prompt('Mô tả ngắn') || '';
-      const d = loadData();
-      d.unshift({name,platform,year,url,desc});
-      saveData(d);
-      render(qInput.value);
-    };
-
-    document.getElementById('reset').onclick = ()=>{
-      if(confirm('Reset về dữ liệu mẫu?')) {
-        localStorage.removeItem(storageKey);
-        render();
-      }
-    };
-
-    qInput.addEventListener('input', ()=> render(qInput.value));
-
-    // init
-    render();
-  </script>
+    <footer>
+        © 2025 YourName. All rights reserved.
+    </footer>
 </body>
 </html>
