@@ -13,19 +13,16 @@
       padding: 50px;
     }
     .container {
-      max-width: 700px;
+      max-width: 900px;
       margin: auto;
       background-color: white;
       padding: 30px;
       border-radius: 12px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
-    h1 {
-      color: #222;
-    }
-    p.description {
-      color: #555;
-    }
+    h1 { color: #222; }
+    p.description { color: #555; }
+
     .social-links a {
       display: inline-block;
       margin: 10px;
@@ -36,18 +33,68 @@
       color: white;
       transition: background 0.3s ease;
     }
-    .social-links a.github {
-      background-color: #24292e;
+    .social-links a.github { background-color: #24292e; }
+    .social-links a.hackerone { background-color: #4942e4; }
+    .social-links a.linkedin { background-color: #0e76a8; }
+    .social-links a:hover { opacity: 0.9; }
+
+    /* Repos section */
+    .repos-wrapper {
+      margin-top: 30px;
+      text-align: left;
     }
-    .social-links a.hackerone {
-      background-color: #4942e4;
+    .repos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+      margin-top: 16px;
     }
-    .social-links a.linkedin {
-      background-color: #0e76a8;
+    .repo-card {
+      background: #fbfbfb;
+      border: 1px solid #e6e6e6;
+      padding: 14px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
     }
-    .social-links a:hover {
-      opacity: 0.9;
+    .repo-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
     }
+    .repo-title {
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #0366d6;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .repo-desc {
+      font-size: 0.95em;
+      color: #444;
+      min-height: 34px;
+    }
+    .repo-meta {
+      margin-top: 10px;
+      font-size: 0.85em;
+      color: #666;
+      display:flex;
+      gap:10px;
+      align-items:center;
+    }
+    .meta-item { display:flex; gap:6px; align-items:center; }
+
+    .view-all {
+      display:inline-block;
+      margin-top: 12px;
+      padding: 8px 14px;
+      border-radius:8px;
+      background:#24292e;
+      color:white;
+      text-decoration:none;
+    }
+
+    footer { margin-top: 30px; font-size: 0.9em; color: #888; }
+    @media (max-width:600px) { body { padding: 20px; } }
   </style>
 </head>
 <body>
@@ -60,15 +107,103 @@
 
     <h2>🔗 My Profiles</h2>
     <div class="social-links">
-      <a href="https://github.com/tptnhanan2001" class="github" target="_blank">GitHub</a>
-      <a href="https://www.linkedin.com/in/nhan-tieu-pham-trong-5177382bb/" class="linkedin" target="_blank">LinkedIn</a>
-      <a href="https://hackerone.com/nhantieu" class="hackerone" target="_blank">HackerOne</a>
-      <a href="https://www.wordfence.com/threat-intel/vulnerabilities/researchers/tieu-nhan" style="background-color: #222;" target="_blank">Wordfence</a>
-      <a href="#" style="background-color: #152;" target="_blank">HoF</a>
-
+      <a href="https://github.com/tptnhanan2001" class="github" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="https://www.linkedin.com/in/nhan-tieu-pham-trong-5177382bb/" class="linkedin" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href="https://hackerone.com/nhantieu" class="hackerone" target="_blank" rel="noopener noreferrer">HackerOne</a>
+      <a href="https://www.wordfence.com/threat-intel/vulnerabilities/researchers/tieu-nhan" style="background-color: #222;" target="_blank" rel="noopener noreferrer">Wordfence</a>
+      <a href="#" style="background-color: #152;" target="_blank" rel="noopener noreferrer">HoF</a>
     </div>
 
-    <p style="margin-top: 40px; font-size: 0.9em; color: #888;">© 2025 Nhan Tieu</p>
+    <!-- Repositories section -->
+    <div class="repos-wrapper">
+      <h2>🗂️ Repositories</h2>
+      <p style="color:#666; margin-top:6px;">Latest public repositories from my GitHub (fetched live). If GitHub API rate-limit is reached, a fallback message will appear.</p>
+
+      <div id="repos" class="repos-grid" aria-live="polite">
+        <!-- repo cards inserted here by JS -->
+      </div>
+
+      <div style="text-align:center;">
+        <a id="viewAllBtn" class="view-all" href="https://github.com/tptnhanan2001" target="_blank" rel="noopener noreferrer">View all on GitHub</a>
+      </div>
+    </div>
+
+    <footer>© 2025 Nhan Tieu</footer>
   </div>
+
+  <script>
+    (function () {
+      const username = "tptnhanan2001"; // <-- đổi nếu cần
+      const perPage = 6;
+      const reposEl = document.getElementById('repos');
+      const viewAllBtn = document.getElementById('viewAllBtn');
+
+      viewAllBtn.href = `https://github.com/${username}`;
+
+      function makeCard(repo) {
+        const a = document.createElement('a');
+        a.className = 'repo-card';
+        a.href = repo.html_url;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+
+        const title = document.createElement('div');
+        title.className = 'repo-title';
+        title.textContent = repo.name;
+
+        const desc = document.createElement('div');
+        desc.className = 'repo-desc';
+        desc.textContent = repo.description || 'No description';
+
+        const meta = document.createElement('div');
+        meta.className = 'repo-meta';
+
+        const stars = document.createElement('span');
+        stars.className = 'meta-item';
+        stars.innerHTML = '⭐ ' + (repo.stargazers_count || 0);
+
+        const forks = document.createElement('span');
+        forks.className = 'meta-item';
+        forks.innerHTML = '🍴 ' + (repo.forks_count || 0);
+
+        const lang = document.createElement('span');
+        lang.className = 'meta-item';
+        lang.textContent = repo.language || '—';
+
+        meta.appendChild(stars);
+        meta.appendChild(forks);
+        meta.appendChild(lang);
+
+        a.appendChild(title);
+        a.appendChild(desc);
+        a.appendChild(meta);
+
+        return a;
+      }
+
+      function showMessage(msg) {
+        reposEl.innerHTML = '<div style="color:#666; padding:14px;">' + msg + '</div>';
+      }
+
+      // Fetch public repos
+      fetch(`https://api.github.com/users/${username}/repos?per_page=${perPage}&sort=updated`)
+        .then(resp => {
+          if (!resp.ok) throw new Error('GitHub API error: ' + resp.status);
+          return resp.json();
+        })
+        .then(repos => {
+          if (!Array.isArray(repos) || repos.length === 0) {
+            showMessage('No public repositories found.');
+            return;
+          }
+          reposEl.innerHTML = '';
+          repos.forEach(r => reposEl.appendChild(makeCard(r)));
+        })
+        .catch(err => {
+          console.warn('Failed to load repos:', err);
+          showMessage('Không thể lấy danh sách repo (có thể do rate limit hoặc GitHub API). Hãy thử lại sau hoặc cập nhật username trong mã.');
+        });
+    })();
+  </script>
 </body>
 </html>
